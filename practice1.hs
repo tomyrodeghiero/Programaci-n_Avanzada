@@ -13,7 +13,7 @@ getSecondElementString str = head(tail str)
 
 -- Exercise 3
 {- 3. Utilizando las funciones head y reverse, y dada la lista “hola mundo”,
-obtenga el  ́ultimo elemento de la misma (la letra “o”). -}
+obtenga el último elemento de la misma (la letra “o”). -}
 getLastElementString :: String -> Char
 getLastElementString str = head(reverse str)
 
@@ -82,8 +82,7 @@ La función sobre listas dadas en clase que se podría implementar de esta maner
 El comando se usa en ghci para saber el número de pasos realizados por el interprete es :set +s. -}
 
 -- Exercise 11
-{- 11. Utilizando ghc compile alguna de sus funciones para obtener c ́odigo eje-
-cutable. -}
+{- 11. Utilizando ghc compile alguna de sus funciones para obtener código ejecutable. -}
 main :: IO ()
 main = do
     let resultEqualExpression = equalExpressions ((2^29) / (2^9)) (2^20)
@@ -93,7 +92,7 @@ main = do
 -- Resolved.
 
 -- Exercise 12
-{- Utilice Cabal para crear un proyecto, el proyecto debe ejecutar la funci ́on
+{- Utilice Cabal para crear un proyecto, el proyecto debe ejecutar la función
 reverse sobre una texto que se d ́e como entrada. -}
 -- Resolved.
 
