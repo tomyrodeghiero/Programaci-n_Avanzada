@@ -30,26 +30,36 @@ maxTres x y z = max x (max y z)
 
 -- Exercise 4
 {- 4. Defina las siguientes operaciones sobre listas (vistas en el teórico): concatenar, tomar, tirar y C. -}
-concatenate :: a -> [a] -> [a]
-concatenate x ys = x : ys
+concatenate :: [a] -> [a] -> [a]
+concatenate [] ys= ys
+concatenate (x:xs) ys = x : concatenate xs ys
+
+-- Annex - the definition is not correct
+concatenate' :: a -> [a] -> [a]
+concatenate' x ys = x : ys
 
 take' :: Int -> [a] -> [a]
 take' n [] = []
 take' 0 xs = []
-take' n (x:xs)
-    | n >= length (x:xs) = (x:xs)
-    | otherwise = x : take' (n-1) xs
+take' n (x:xs) = x : take' (n-1) xs
 
 take'' :: Int -> [a] -> [a]
+take'' n [] = []
+take'' 0 xs = []
 take'' n (x:xs)
+    | n >= length (x:xs) = (x:xs)
+    | otherwise = x : take'' (n-1) xs
+
+take''' :: Int -> [a] -> [a]
+take''' n (x:xs)
     | n == 0 = []
     | n >= length (x:xs) = (x:xs)
-    | otherwise =  x : take'' (n-1) xs
+    | otherwise =  x : take''' (n-1) xs
 
 drop' :: Int -> [a] -> [a]
 drop' n [] = []
 drop' 0 xs = xs
-drop' n (x:xs) = drop (n-1) xs
+drop' n (x:xs) = drop' (n-1) xs
 
 insertToFinish :: a -> [a] -> [a]
 insertToFinish y [] = [y]
@@ -65,33 +75,49 @@ abs'' n
     | n >= 0 = n
     | otherwise = n * (-1)
 
+abs''' :: Int -> Int
+abs''' x | x < 0 = (-x)
+         | otherwise = x
+
 -- Exercise 6
 {- 6 *. Defina una función edad :: (Nat,Nat,Nat) -> (Nat,Nat,Nat) -> Int
 que dada dos fechas indica los añoos transcurridos entre ellas. Por ejemplo: edad (20,10,1968) (30,4,1987) = 18 -}
 data Nat = Zero | Succ Nat
 edad :: (Int, Int, Int) -> (Int, Int, Int) -> Int
-edad (day1, month1, year1) (day2, month2, year2) = (year2 - year1) - 1
+edad (day1, month1, year1) (day2, month2, year2)
+    | month2 < month1 = if (day2 < day1) then year2 - year1 else year2 - year1 - 1
+    | otherwise = year2 - year1
 
 -- Exercise 7
 {- 7. La disyunción excluyente xor de dos fórmulas se verifica si una es verdadera
 y la otra es falsa. Defina la función xor que calcule la disyunción excluyente a
 partir de la tabla de verdad. -}
 xor :: Bool -> Bool -> Bool
-xor p q
-    | p == True && q == True = False
-    | p == True && q == False = True
-    | p == False && q == True = True
-    | p == False && q == False = False
+xor True True = False
+xor True False = True
+xor False True = True
+xor False False = False
 
 {- *. Ahora defina la función xor2 que calcule la disyunción excluyente pero sin
 que considere todos los posibles valores de las entradas. Cuál será la diferencias
 entre ambas definiciones? -}
-xor' :: Bool -> Bool -> Bool
-xor' p q = if (p == q) then False else True
+xor2 :: Bool -> Bool -> Bool
+xor2 p q = if (p == q) then False else True
 -- La diferencia entre ambas definiciones es la simplifación de la definición en la función.
 
 -- Exercise 8
-{- 8. Defina una función que dado un n ́umero natural, decida si el mismo es primo o no. -}
+{- 8. Defina una función que dado un número natural, decida si el mismo es primo o no. -}
+-- Version 1
+prim' :: Int -> Int -> Bool
+prim' x 1 = False
+prim' x y = mod x y == 0 || prim' x (y-1)
+
+prim :: Int -> Bool
+prim 1 = False
+prim 2 = True
+prim x = not (prim' x (x-1))
+
+-- Version 2
 isqrt :: Float -> Int
 isqrt n = floor(sqrt n)
 

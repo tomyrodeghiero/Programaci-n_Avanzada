@@ -52,15 +52,21 @@ isAMultipleNumberOf6 number = isNumberEven number && isAMultipleNumberOf3 number
 
 -- Exercise 8
 {- 8. Escriba una función que dado un número retorne la lista de sus digitos. -}
-listDigitsToInt :: Int -> [Int]
-listDigitsToInt number
-                | number == 0 = [0] -- base case for number 0
-                | otherwise = reverse (listDigitsToInt' number) -- reverse the list of digits so they are in the correct order
+intToListDigits :: Int -> [Int]
+intToListDigits x
+                | x < 10 = [x]
+                | otherwise = intToListDigits (div x 10) ++ [mod x 10]
 
-listDigitsToInt' :: Int -> [Int]
-listDigitsToInt' number
+
+intToListDigits' :: Int -> [Int]
+intToListDigits' number
+                | number == 0 = [0] -- base case for number 0
+                | otherwise = reverse (intToListDigits'' number) -- reverse the list of digits so they are in the correct order
+
+intToListDigits'' :: Int -> [Int]
+intToListDigits'' number
                 | number == 0 = []  -- base case for number 0
-                | otherwise = (number `mod` 10) : listDigitsToInt' (number `div` 10)  -- add the current digit to the list and continue with the next one
+                | otherwise = (number `mod` 10) : intToListDigits'' (number `div` 10)  -- add the current digit to the list and continue with the next one
 -- On each call, module n with 10 return the rightmost digit, and integer diviison of n by 10 removes that digit, leaving us with the rest of the number
 
 -- Exercise 9
