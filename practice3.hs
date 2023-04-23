@@ -14,7 +14,6 @@ merge (x:xs) (y:ys)
 
 -- Exercise 2
 {- 2. Define una función que, dada una lista de naturales, la ordene. -}
-data Nat = Zero | Succ Nat
 quickSort :: Ord a => [a] -> [a]
 quickSort [] = []
 quickSort (x:xs) = quickSort left ++ [x] ++ quickSort right
@@ -26,8 +25,8 @@ quickSort (x:xs) = quickSort left ++ [x] ++ quickSort right
 {- 3. Define una función que, recursivamente y sólo utilizando adición y multiplicación, 
 calcule, dado un natural n, el número 2^n. -}
 powInBase2 :: Int -> Int
-powInBase2 0 = 1;
-powInBase2 1 = 2;
+powInBase2 0 = 1
+powInBase2 1 = 2
 powInBase2 n = 2 * powInBase2 (n - 1)
 
 -- Exercise 4
@@ -66,7 +65,9 @@ hamming :: Eq a => [a] -> [a] -> Int
 hamming [] [] = 0
 hamming xs [] = 0
 hamming [] ys = 0
-hamming (x:xs) (y:ys) = if (x /= y) then 1 + hamming xs ys else hamming xs ys
+hamming (x:xs) (y:ys)
+    | x /= y = 1 + hamming xs ys
+    | otherwise = hamming xs ys
 
 -- Exercise 7
 {- 7. Define la función que, dado un número natural, decida si el mismo es un
@@ -84,9 +85,8 @@ divsSqrt n = [x | x <- [1..isqrt(fromIntegral n)], n `mod` x == 0]
 -- Exercise 8
 {- 8. Define la función repetidos de forma tal que dado un elemento z y un entero
 n; z aparece n veces. -}
-
 repetidos :: a -> Int -> [a]
-repetidos z 0 = []
+repetidos _ 0 = []
 repetidos z 1 = [z]
 repetidos z n = z : repetidos z (n-1)
 

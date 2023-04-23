@@ -21,7 +21,7 @@ intToNat n = Succ (intToNat (n-1))
 sumaNat :: Nat -> Nat -> Nat
 sumaNat Zero Zero = Zero
 sumaNat Zero (Succ n) = Succ n
-sumaNat (Succ n) Zero = (Succ n)
+sumaNat (Succ n) Zero = Succ n
 sumaNat (Succ n1) (Succ n2) = sumaNat n1 (Succ (Succ n2))
 
 -- Exercise 5

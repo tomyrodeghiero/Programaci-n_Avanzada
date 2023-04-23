@@ -7,7 +7,6 @@ equalExpressions x y = x == y
 -- Exercise 2
 {- 2. Utilizando las funciones head y tail, y dada la lista “hola mundo”,
 obtenga el segundo elemento de la misma (la letra “o”). -}
-
 getSecondElementString :: String -> Char
 getSecondElementString str = head(tail str)
 
@@ -18,7 +17,7 @@ getLastElementString :: String -> Char
 getLastElementString str = head(reverse str)
 
 getLastInt :: [Int] -> Int
-getLastInt int = head(reverse int)
+getLastInt ints = head(reverse ints)
 
 -- Exercise 4
 {- 4. Podemos examinar los tipos de algunas expresiones a partir del comando :t, el cual, 
@@ -33,7 +32,7 @@ Examina los tipos de las expresiones de los ejercicios que siguen. -}
 determine si un número, representado como la lista de sus dígitos (ej: 123
 = [1,2,3]) es par. -}
 isNumberEven :: [Int] -> Bool
-isNumberEven number = getLastInt number `mod` 2 == 0
+isNumberEven number = (getLastInt number) `mod` 2 == 0
 
 isNumberEven2 :: [Int] -> Bool
 isNumberEven2 number = ((foldl (\acc x -> acc * 10 + x) 0 number) `mod` 2) == 0
@@ -41,14 +40,14 @@ isNumberEven2 number = ((foldl (\acc x -> acc * 10 + x) 0 number) `mod` 2) == 0
 -- Exercise 6
 {- 6. Utilizando la función sum, la función mod y un número representado de
 igual manera que en el [ item 5 ] determine si un número es múltiplo de 3. -}
-isAMultipleNumberOf3 :: [Int] -> Bool
-isAMultipleNumberOf3 number = (sum number) `mod` 3 == 0
+isAMultipleOf3 :: [Int] -> Bool
+isAMultipleOf3 number = (sum number) `mod` 3 == 0
 
 -- Exercise 7
 {- 7. Utilizando las funciones de los [ items 5, 6 ] determine si un número es
 múltiplo de 6. -}
-isAMultipleNumberOf6 :: [Int] -> Bool
-isAMultipleNumberOf6 number = isNumberEven number && isAMultipleNumberOf3 number
+isAMultipleOf6 :: [Int] -> Bool
+isAMultipleOf6 number = isNumberEven number && isAMultipleOf3 number
 
 -- Exercise 8
 {- 8. Escriba una función que dado un número retorne la lista de sus digitos. -}
@@ -99,6 +98,5 @@ main = do
 
 -- Exercise 12
 {- Utilice Cabal para crear un proyecto, el proyecto debe ejecutar la función
-reverse sobre una texto que se d ́e como entrada. -}
+reverse sobre una texto que se de como entrada. -}
 -- Resolved.
-

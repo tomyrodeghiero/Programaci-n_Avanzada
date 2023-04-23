@@ -14,13 +14,13 @@ tl (x:xs) = xs
 
 -- • last :: [A] -> A retorna el último elemento de la lista.
 last' :: [a] -> a
-last' (x:xs) = head(reverse(xs))
+last' xs = head(reverse xs)
 
 -- • init:: [A] -> [A] retorna toda la lista menos el último elemento.
 init' :: [a] -> [a]
 init' [] = []
-init' (x:[]) = []
-init' (x:xs) = x : init' (xs)
+init' [x] = []
+init' (x:xs) = x : init' xs
 
 -- Exercise 3
 {- 3. Defina una función máximo de tres, tal que maxTres x y z es el máximo
@@ -39,8 +39,8 @@ concatenate' :: a -> [a] -> [a]
 concatenate' x ys = x : ys
 
 take' :: Int -> [a] -> [a]
-take' n [] = []
 take' 0 xs = []
+take' n [] = []
 take' n (x:xs) = x : take' (n-1) xs
 
 take'' :: Int -> [a] -> [a]
@@ -82,7 +82,6 @@ abs''' x | x < 0 = (-x)
 -- Exercise 6
 {- 6 *. Defina una función edad :: (Nat,Nat,Nat) -> (Nat,Nat,Nat) -> Int
 que dada dos fechas indica los añoos transcurridos entre ellas. Por ejemplo: edad (20,10,1968) (30,4,1987) = 18 -}
-data Nat = Zero | Succ Nat
 edad :: (Int, Int, Int) -> (Int, Int, Int) -> Int
 edad (day1, month1, year1) (day2, month2, year2)
     | month2 < month1 = if (day2 < day1) then year2 - year1 else year2 - year1 - 1
@@ -108,14 +107,15 @@ xor2 p q = if (p == q) then False else True
 -- Exercise 8
 {- 8. Defina una función que dado un número natural, decida si el mismo es primo o no. -}
 -- Version 1
-prim' :: Int -> Int -> Bool
-prim' x 1 = False
-prim' x y = mod x y == 0 || prim' x (y-1)
-
 prim :: Int -> Bool
 prim 1 = False
 prim 2 = True
 prim x = not (prim' x (x-1))
+
+-- helper function
+prim' :: Int -> Int -> Bool
+prim' x 1 = False
+prim' x y = mod x y == 0 || prim' x (y-1)
 
 -- Version 2
 isqrt :: Float -> Int
@@ -137,7 +137,7 @@ listPrimesLessThanN n = [x | x <- [1..n-1], prime x]
 {- 10. Defina una función que dada una lista, retorne la reversa de la misma. -}
 reverseList :: [a] -> [a]
 reverseList [] = []
-reverseList (x:[]) = [x]
+reverseList [x] = [x]
 reverseList (x:xs) = last' (x:xs) : reverseList (take (length xs) (x:xs))
 
 -- Exercise 11
@@ -160,10 +160,10 @@ palindromeList (x:xs) = x == head (reverse (x:xs)) && palindromeList (init xs)
 raíces reales de la ecuación ax2 + bx + c = 0 -}
 linearRootsQuadraticEquation :: Int -> Int -> Int -> Int
 linearRootsQuadraticEquation a b c
-    | discriminat < 0 = 0 -- no real roots
-    | discriminat == 0 = 1 -- one real root (double root)
+    | discriminant < 0 = 0 -- no real roots
+    | discriminant == 0 = 1 -- one real root (double root)
     | otherwise = 2
-    where discriminat = b ^ 2 - 4 * a * c
+    where discriminant = b ^ 2 - 4 * a * c
 
 -- Function to calculate the length of a list
 lengthList :: [a] -> Int
